@@ -1,4 +1,4 @@
-const VERSION = 'ntuh-phone-v1';
+const VERSION = 'ntuh-phone-v2';
 const PRECACHE = [
   './',
   './index.html',
