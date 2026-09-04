@@ -9,8 +9,8 @@
   "id": "/ntuh-phone/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#DDE3DE",
-  "theme_color": "#DDE3DE",
+  "background_color": "#EEEEEE",
+  "theme_color": "#F0EFEB",
   "icons": [
     {
       "src": "./icons/icon-192.png",
