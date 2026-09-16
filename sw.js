@@ -1,4 +1,4 @@
-const VERSION = 'ntuh-phone-v2';
+const VERSION = 'ntuh-phone-v3';
 const PRECACHE = [
   './',
   './index.html',
@@ -12,9 +12,16 @@ const PRECACHE = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(VERSION)
-    .then(c => c.addAll(PRECACHE))
-    .then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(VERSION).then(async c => {
+    await c.addAll(PRECACHE.filter(p => p !== './' && !p.endsWith('index.html')));
+    
+    for (const p of ['./', './index.html']) {
+      try {
+        const r = await fetch(new Request(p, { cache: 'reload' }));
+        if (r && r.ok) await c.put(p, r.clone());
+      } catch {}
+    }
+  }).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', e => {
@@ -41,7 +48,8 @@ self.addEventListener('fetch', e => {
       const cache = await caches.open(VERSION);
       try {
         const net = await Promise.race([
-          fetch(req),
+          
+          fetch(new Request(req.url, { cache: 'no-cache' })),
           new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 3000)),
         ]);
         if (net && net.ok) cache.put(req, net.clone());
