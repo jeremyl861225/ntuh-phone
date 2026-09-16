@@ -1,7 +1,7 @@
 {
   "name": "NTUH phone",
   "short_name": "NTUH phone",
-  "description": "需要通行碼才能開啟。",
+  "description": "需要密碼才能開啟。",
   "lang": "zh-Hant",
   "dir": "ltr",
   "start_url": "./index.html",
